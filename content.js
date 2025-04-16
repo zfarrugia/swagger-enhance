@@ -35,38 +35,8 @@ function detectSwagger() {
 }
 
 function applySwaggerEnhancements() {
-    // Apply custom styling
-    applyCustomStyling();
-
     // Add Postman integration button
     addPostmanButton();
-
-    // Watch for dynamic content changes in Swagger UI
-    observeSwaggerChanges();
-}
-
-function applyCustomStyling() {
-    // Add a class to the body for our custom CSS to target
-    document.body.classList.add('swagger-enhance-extension');
-
-    // For any elements that might be added dynamically, we'll also add inline styles
-    // Specifically target JSON/response areas
-    const targetSelectors = [
-        '.swagger-ui .highlight-code',
-        '.swagger-ui .responses-wrapper',
-        '.swagger-ui pre',
-        '.swagger-ui .response',
-        '.swagger-ui .body-param__text',
-        '.swagger-ui .model-example'
-    ];
-
-    targetSelectors.forEach(selector => {
-        const elements = document.querySelectorAll(selector);
-        elements.forEach(el => {
-            el.style.maxHeight = '500px';
-            el.style.overflowY = 'scroll';
-        });
-    });
 }
 
 function addPostmanButton() {
@@ -163,44 +133,4 @@ function findDefinitionUrl() {
     }
 
     return definitionUrl;
-}
-
-function observeSwaggerChanges() {
-    // Create a mutation observer to watch for changes in the Swagger UI
-    // This ensures our styles are applied to dynamically loaded content
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-                // If new nodes were added, check if they're Swagger components
-                for (let i = 0; i < mutation.addedNodes.length; i++) {
-                    const node = mutation.addedNodes[i];
-                    if (node.nodeType === 1) { // Element node
-                        // Check if this is a Swagger response or code area
-                        if (node.classList &&
-                            (node.classList.contains('highlight-code') ||
-                                node.classList.contains('responses-wrapper') ||
-                                node.classList.contains('body-param__text') ||
-                                node.classList.contains('model-example'))) {
-                            // Apply our styles
-                            node.style.maxHeight = '500px';
-                            node.style.overflowY = 'scroll';
-                        }
-
-                        // Also check children
-                        const elements = node.querySelectorAll('.highlight-code, .responses-wrapper, pre, .response, .body-param__text, .model-example');
-                        elements.forEach(el => {
-                            el.style.maxHeight = '500px';
-                            el.style.overflowY = 'scroll';
-                        });
-                    }
-                }
-            }
-        });
-    });
-
-    // Start observing the entire document
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
 }
