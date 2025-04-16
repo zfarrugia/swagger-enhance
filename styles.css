@@ -1,0 +1,81 @@
+﻿/* Main styling for Swagger fields */
+/*.swagger-enhance-extension .swagger-ui .highlight-code,*/
+/*.swagger-enhance-extension .swagger-ui .responses-wrapper,*/
+/*.swagger-enhance-extension .swagger-ui pre,*/
+/*.swagger-enhance-extension .swagger-ui .response,*/
+/*.swagger-enhance-extension .swagger-ui .model,*/
+/*.swagger-enhance-extension .swagger-ui .body-param__text,*/
+/*.swagger-enhance-extension .swagger-ui .model-example {*/
+/*    max-height: 500px !important;*/
+/*    overflow-y: scroll !important;*/
+/*    overflow-x: auto !important;*/
+/*    border: 1px solid #ddd !important;*/
+/*    border-radius: 4px !important;*/
+/*    padding: 10px !important;*/
+/*}*/
+
+.parameters-container {
+    max-height: 500px !important;
+    overflow-y: auto !important;
+}
+
+/* Postman button styling */
+.postman-import-button {
+    /*position: absolute;*/
+    /*top: 10px;*/
+    /*right: 10px;*/
+    /*z-index: 1000;*/
+    padding: 10px 0 0 10px;
+}
+
+.postman-import-button a {
+    display: flex;
+    align-items: center;
+    background-color: #FF6C37;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+}
+
+.postman-import-button a:hover {
+    background-color: #E05A2B;
+}
+
+.postman-import-button img {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+}
+
+/*!* Make sure code blocks don't overflow horizontally *!*/
+/*.swagger-enhance-extension .swagger-ui .highlight-code pre {*/
+/*    white-space: pre-wrap !important;*/
+/*    word-break: break-word !important;*/
+/*}*/
+
+/*!* Better scrollbar styling *!*/
+/*.swagger-enhance-extension .swagger-ui .highlight-code::-webkit-scrollbar,*/
+/*.swagger-enhance-extension .swagger-ui .responses-wrapper::-webkit-scrollbar,*/
+/*.swagger-enhance-extension .swagger-ui pre::-webkit-scrollbar {*/
+/*    width: 8px;*/
+/*    height: 8px;*/
+/*}*/
+
+/*.swagger-enhance-extension .swagger-ui .highlight-code::-webkit-scrollbar-thumb,*/
+/*.swagger-enhance-extension .swagger-ui .responses-wrapper::-webkit-scrollbar-thumb,*/
+/*.swagger-enhance-extension .swagger-ui pre::-webkit-scrollbar-thumb {*/
+/*    background: #888;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*.swagger-enhance-extension .swagger-ui .highlight-code::-webkit-scrollbar-thumb:hover,*/
+/*.swagger-enhance-extension .swagger-ui .responses-wrapper::-webkit-scrollbar-thumb:hover,*/
+/*.swagger-enhance-extension .swagger-ui pre::-webkit-scrollbar-thumb:hover {*/
+/*    background: #555;*/
+/*}*/
