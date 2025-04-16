@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Check again after a short delay to catch dynamically loaded Swagger UIs
 setTimeout(() => {
-    detectSwagger();
+    if (!swaggerProcessed) {
+        detectSwagger();
+    }
 }, 1500);
 
 function detectSwagger() {
@@ -44,7 +46,7 @@ function addPostmanButton() {
     let definitionUrl = findDefinitionUrl();
 
     if (!definitionUrl) {
-        console.log("Could not find definition URL");
+        console.error("No valid Swagger/OpenAPI definition URL found.");
         return;
     }
 
@@ -52,8 +54,8 @@ function addPostmanButton() {
     const postmanButton = document.createElement('div');
     postmanButton.className = 'postman-import-button';
     postmanButton.innerHTML = `
-    <a href="https://app.getpostman.com/run-collection/import?collection=${encodeURIComponent(definitionUrl)}" 
-       target="_blank" 
+    <a href="https://app.getpostman.com/run-collection/import?collection=${encodeURIComponent(definitionUrl)}"
+       target="_blank"
        title="Import into Postman">
       <img src="${chrome.runtime.getURL('postman-icon.png')}" alt="Postman" />
       Import to Postman
@@ -65,7 +67,7 @@ function addPostmanButton() {
         document.querySelector('.swagger-ui .information-container') ||
         document.querySelector('.swagger-ui');
 
-    if (header) {
+    if (header && !header.querySelector('.postman-import-button')) {
         header.style.position = 'relative'; // Ensure we can position our button
         header.appendChild(postmanButton);
     }
@@ -110,11 +112,10 @@ function findDefinitionUrl() {
 
         for (const path of possiblePaths) {
             const fullUrl = `${currentUrl.origin}${path}`;
-
-            // We can't directly check if these URLs exist due to CORS,
-            // but we can use this as a fallback option
-            definitionUrl = fullUrl;
-            break;
+            if (isValidUrl(fullUrl)) {
+                definitionUrl = fullUrl;
+                break;
+            }
         }
     }
 
@@ -133,4 +134,13 @@ function findDefinitionUrl() {
     }
 
     return definitionUrl;
+}
+
+function isValidUrl(url) {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
 }
